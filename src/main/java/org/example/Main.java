@@ -80,17 +80,28 @@ public class Main {
             PDDocument document = PDDocument.load(file);
             PDFTextStripper stripper = new PDFTextStripper();
             //Retrieving text from PDF document
-            List<String> text = Arrays.asList(stripper.getText(document));
+            //List<String> text = Arrays.asList(stripper.getText(document));
+            String text = stripper.getText(document);
             System.out.println(text);
-            textsFromPDF.add(String.valueOf(text));
+            textsFromPDF.add(text);
             //Closing the document
             document.close();
         }
         System.out.println("------KEYS---------");
+        String aa = "" + textsFromPDF.get(1).replaceAll("\\[", "")
+                                            .replaceAll(",","")
+                                            .replaceAll("Hola mundo","");
+        //String aaa = Arrays.toString(aa.split(","));
+        System.out.println(aa);
+        //System.out.println(aa.replaceAll("\\[", "").replaceAll("\\]",""));
+
+        /*
         for (String s: textsFromPDF) {
             //System.out.println(Arrays.toString(s.split(",")));
-            System.out.println(Arrays.toString(new String[]{s.replaceAll("\\[", "").replaceAll("\\]", "")}));
-        }
+            String a = Arrays.toString(new String[]{s.replaceAll("\\[", "").replaceAll("\\]", "")});
+            String b = String.valueOf(a.split(","));
+            System.out.println(b);
+        }*/
         //System.out.println(textsFromPDF);
 
 
