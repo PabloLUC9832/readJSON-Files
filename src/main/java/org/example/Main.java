@@ -88,11 +88,22 @@ public class Main {
             document.close();
         }
         System.out.println("------KEYS---------");
+
+        //for (int i=0; i< textsFromPDF.size();i++) {
+        ArrayList<String> keysFromPDF = new ArrayList<>();
+        for (String s : textsFromPDF) {
+            //System.out.println(s.replaceAll("Hola mundo","").replaceAll(",",""));
+            keysFromPDF.add(s.replaceAll("Hola mundo","").replaceAll(",",""));
+        }
+        System.out.println(keysFromPDF);
+        /*
         String aa = "" + textsFromPDF.get(1).replaceAll("\\[", "")
                                             .replaceAll(",","")
                                             .replaceAll("Hola mundo","");
+        */
         //String aaa = Arrays.toString(aa.split(","));
-        System.out.println(aa);
+
+        //System.out.println(aa);
         //System.out.println(aa.replaceAll("\\[", "").replaceAll("\\]",""));
 
         /*
