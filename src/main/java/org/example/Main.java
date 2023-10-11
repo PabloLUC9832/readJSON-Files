@@ -89,32 +89,52 @@ public class Main {
         }
         System.out.println("------KEYS---------");
 
-        //for (int i=0; i< textsFromPDF.size();i++) {
         ArrayList<String> keysFromPDF = new ArrayList<>();
         for (String s : textsFromPDF) {
-            //System.out.println(s.replaceAll("Hola mundo","").replaceAll(",",""));
-            keysFromPDF.add(s.replaceAll("Hola mundo","").replaceAll(",",""));
+            keysFromPDF.add(s.replaceAll(" ","")
+                    .replaceAll("Holamundo","").replaceAll(",",""));
+                    //.replaceAll(",",""));
+                    //.replaceAll(" ",""));
         }
-        System.out.println(keysFromPDF);
-        /*
-        String aa = "" + textsFromPDF.get(1).replaceAll("\\[", "")
-                                            .replaceAll(",","")
-                                            .replaceAll("Hola mundo","");
-        */
-        //String aaa = Arrays.toString(aa.split(","));
+        System.out.print(keysFromPDF);
 
-        //System.out.println(aa);
-        //System.out.println(aa.replaceAll("\\[", "").replaceAll("\\]",""));
+        //Manejo de archivos, renombrar los pdfs con las keys y los sufijos, y guardarlos en la carpeta salida.
+        OutputStream os = null;
+        InputStream is = null;
+        //for (File file : files)
+        for (String s : keysFromPDF)
+        {
+            //System.out.println("filenames");
+            //file.getName();
+            //System.out.println("----");
+            //for (String s : keysFromPDF) {
+            for (File file : files) {
+                is = new FileInputStream(file);
 
-        /*
-        for (String s: textsFromPDF) {
-            //System.out.println(Arrays.toString(s.split(",")));
-            String a = Arrays.toString(new String[]{s.replaceAll("\\[", "").replaceAll("\\]", "")});
-            String b = String.valueOf(a.split(","));
-            System.out.println(b);
-        }*/
-        //System.out.println(textsFromPDF);
+                //String fileName = s.trim() +"_"+nPDF;
+                //System.out.println(fileName);
+                os = new FileOutputStream(
+                        new File("C:\\Users\\rdjr\\Documents\\Empleos\\galvan\\output\\"+s.trim() +"_"+nPDF+".pdf"));
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = is.read(buffer)) > 0) {
+                    os.write(buffer, 0, length);
+                }
+            }
+            /*
+            is = new FileInputStream(file);
 
+            String fileName = ""+nPDF;
+
+            os = new FileOutputStream(
+                    new File("C:\\Users\\rdjr\\Documents\\Empleos\\galvan\\output\\"+fileName+".pdf"));
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+             */
+        }
 
     }
 
