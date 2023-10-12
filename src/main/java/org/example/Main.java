@@ -63,6 +63,8 @@ public class Main {
         });
         System.out.println("--------TEXT FROM PDFs-------");
         ArrayList<String> textsFromPDF = new ArrayList<>();
+        //Map<String, String> map = new HashMap<String, Integer>();
+
         for (File file : files)
         {
             /*
@@ -83,7 +85,8 @@ public class Main {
             //List<String> text = Arrays.asList(stripper.getText(document));
             String text = stripper.getText(document);
             System.out.println(text);
-            textsFromPDF.add(text);
+            textsFromPDF.add(file.getName());
+            textsFromPDF.add(text.trim());
             //Closing the document
             document.close();
         }
@@ -91,6 +94,7 @@ public class Main {
 
         ArrayList<String> keysFromPDF = new ArrayList<>();
         for (String s : textsFromPDF) {
+            //keysFromPDF.add(s);
             keysFromPDF.add(s.replaceAll(" ","")
                     .replaceAll("Holamundo","").replaceAll(",",""));
                     //.replaceAll(",",""));
@@ -101,41 +105,46 @@ public class Main {
         //Manejo de archivos, renombrar los pdfs con las keys y los sufijos, y guardarlos en la carpeta salida.
         OutputStream os = null;
         InputStream is = null;
-        //for (File file : files)
-        for (String s : keysFromPDF)
+        System.out.println("------DOCS-KEYS---------");
+        for (File file : files)
         {
-            //System.out.println("filenames");
-            //file.getName();
-            //System.out.println("----");
-            //for (String s : keysFromPDF) {
-            for (File file : files) {
-                is = new FileInputStream(file);
-
-                //String fileName = s.trim() +"_"+nPDF;
-                //System.out.println(fileName);
-                os = new FileOutputStream(
-                        new File("C:\\Users\\rdjr\\Documents\\Empleos\\galvan\\output\\"+s.trim() +"_"+nPDF+".pdf"));
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = is.read(buffer)) > 0) {
-                    os.write(buffer, 0, length);
-                }
-            }
             /*
-            is = new FileInputStream(file);
+            for (String s : keysFromPDF) {
+                System.out.println("*-**");
+                System.out.println(s);
+                if (file.getName().equals( s.get )){
+                    System.out.println(file.getName()+"_"+s.trim()+"_"+nPDF);
+                }
 
-            String fileName = ""+nPDF;
-
-            os = new FileOutputStream(
-                    new File("C:\\Users\\rdjr\\Documents\\Empleos\\galvan\\output\\"+fileName+".pdf"));
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = is.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
             }
              */
-        }
+            //System.out.println(file.getName().replaceAll(" ",""));
+            //System.out.println(keysFromPDF.get(0));
 
+            for(int i=0;i<keysFromPDF.size();i++){
+                if (file.getName().replaceAll(" ","").equals( keysFromPDF.get(i) )){
+                    //System.out.println(file.getName().trim()+"_"+keysFromPDF.get(i)+"_"+nPDF);
+                    is = new FileInputStream(file);
+                    os = new FileOutputStream(
+                            new File("C:\\Users\\rdjr\\Documents\\Empleos\\galvan\\output\\"+keysFromPDF.get(i+1)+"_"+nPDF+".pdf"));
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = is.read(buffer)) > 0) {
+                        os.write(buffer, 0, length);
+                    }
+                }
+            }
+
+        }
+        /*
+        for(int i=0;i<files.length;i++){
+
+            for(int j=i;j<keysFromPDF.size();j++){
+                System.out.println(files[i].getName()+"_"+keysFromPDF.get(j).trim()+"_"+nPDF);
+            }
+
+        }
+        */
     }
 
     private static String listToString(List list,int index){
